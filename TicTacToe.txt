@@ -1,0 +1,734 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+//using System.Media;
+using System.Threading;
+using System.Threading.Tasks;
+
+
+//Tic Tac Toe With animation 
+// K.S
+
+namespace TicTacToe
+{
+class Program
+{
+    static void Main(string[] args)
+    {
+        int PlayerTurn = 0;  
+        int[] TableBlock = new int[10] { 1, 2, 3, 4, 5, 6, 7, 8, 9 , 10 };
+        string[] BlockContent = new string[9] { "", "", "", "", "", "", "", "", "" };
+        var content = "";
+        bool End = false;
+        bool IsWin = false;
+        string PlayerWon = "";
+        var ForeColor = ConsoleColor.DarkRed;
+        var BackColor = ConsoleColor.Black;
+        int Xwon = 0;
+        int Ywon = 0;
+
+        Console.CursorVisible = (false);
+        
+        Console.SetWindowSize(Console.LargestWindowWidth, Console.LargestWindowHeight);
+        //Intro
+        firstpage();
+        string GameType = Console.ReadLine();
+        //Game Dimensions And Themes
+        switch (GameType)
+        {
+            case "Dark":
+                //SoundPlayer player = new SoundPlayer();
+                //player.SoundLocation = AppDomain.CurrentDomain.BaseDirectory + "\\Sqeaking_door-Sarasprella-1754011079.wav";
+                //player.Play();
+                do
+                {
+                    // StartUp Dark
+                    Console.Clear();
+                        ForeColor = ConsoleColor.DarkRed;
+                        BackColor = ConsoleColor.Black;
+                    Console.BackgroundColor = BackColor;
+                    Console.ForegroundColor = ForeColor;
+                    WriteHalloween();
+                    Thread.Sleep(6000);
+                    // Background Red And black
+                        
+                    for (int j = 0; j <= Console.LargestWindowHeight - 1; j++)
+                    {
+
+                        for (int i = 0; i <= Console.LargestWindowWidth - 1; i++)
+                        {
+
+                            if (j % 2 == 0)
+                            {
+
+                                if (i % 2 == 0)
+                                {
+
+                                    Console.SetCursorPosition(i, j);
+                                    Console.BackgroundColor = BackColor;
+                                    Console.Write(" ");
+                                }
+                                else if (i % 2 != 0)
+                                {
+                                    Console.SetCursorPosition(i, j);
+                                    Console.BackgroundColor = BackColor;
+                                    Console.Write(" ");
+                                }
+                            }
+                            else
+                            {
+                                if (i % 2 == 0)
+                                {
+                                    Console.SetCursorPosition(i, j);
+                                    Console.BackgroundColor = ForeColor;
+                                    Console.Write(" ");
+                                }
+                                else if (i % 2 != 0)
+                                {
+                                    Console.SetCursorPosition(i, j);
+                                    Console.BackgroundColor = ForeColor;
+                                    Console.Write(" ");
+                                }
+                            }
+
+
+                        }
+                    }
+
+                    // Background Goes Black
+                    for (int j = 0; j <= Console.LargestWindowHeight - 1; j++)
+                    {
+                        for (int i = 0; i <= Console.LargestWindowWidth - 1; i++)
+                        {
+                            Console.SetCursorPosition(i, j);
+                            Console.BackgroundColor = BackColor;
+                            Console.Write(" ");
+                        }
+                    }
+                    // Color Changing of Text And Playing Sound
+                    Console.BackgroundColor = BackColor;
+                    Console.SetCursorPosition(107, 18);
+                    for (int color = 0; color <= 5; color++)
+                    {
+                        Console.Clear();
+                        Console.ForegroundColor = ForeColor;
+                        WriteTicTacToe();
+                        Thread.Sleep(100);
+                        if (color % 2 == 0)
+                        {
+                            Console.Clear();
+                            Console.ForegroundColor = BackColor;
+                            WriteTicTacToe();
+                            Thread.Sleep(500);
+                            //SoundPlayer Heartbeat = new SoundPlayer();
+                            //Heartbeat.SoundLocation = AppDomain.CurrentDomain.BaseDirectory + "\\Spooky Heart Beats-SoundBible.com-2083622150.wav";
+                            //Heartbeat.Play();
+
+                        }
+                        else
+                        {
+                            Console.Clear();
+                            Console.ForegroundColor = ForeColor;
+                            WriteTicTacToe();
+                            Thread.Sleep(1000);
+                            //SoundPlayer Heartbeat = new SoundPlayer();
+                            //Heartbeat.SoundLocation = AppDomain.CurrentDomain.BaseDirectory + "\\Spooky Heart Beats-SoundBible.com-2083622150.wav";
+                            //Heartbeat.Play();
+                        }
+
+
+                    }
+                    //player.Stop();
+                    Console.ForegroundColor = ForeColor;
+                    Console.SetCursorPosition(0, 19);
+                    WriteTicTacToe();
+                    Console.ReadKey();
+                        break;
+                    } while (!(Console.ReadKey(true).Key == ConsoleKey.Enter));
+                //SoundPlayer Laugh = new SoundPlayer();
+                //Laugh.SoundLocation = AppDomain.CurrentDomain.BaseDirectory + "\\ta-snes_bowser_laugh.wav";
+                //Laugh.Play();
+                break;
+
+            case "Light":
+                
+                do
+                {
+                    Console.Clear();
+                        BackColor = ConsoleColor.White;
+                        ForeColor = ConsoleColor.Blue;
+                    Console.BackgroundColor = BackColor;
+                    Console.ForegroundColor = ForeColor;
+                    Console.Clear();
+                    Console.SetCursorPosition(50, 15);
+                    //LightDimension();
+                    //SoundPlayer LightWave = new SoundPlayer();
+                    //LightWave.SoundLocation = AppDomain.CurrentDomain.BaseDirectory + "\\Beach Waves-SoundBible.com-1024681188.wav";
+                    //LightWave.Play();
+
+                    // Light Background white Green Blue
+                    for (int j = 0; j <= Console.LargestWindowHeight - 1; j++)
+                    {
+
+                        for (int i = 0; i <= Console.LargestWindowWidth - 1; i++)
+                        {
+
+                            if (j % 2 == 0)
+                            {
+
+                                if (i % 2 == 0)
+                                {
+
+                                    Console.SetCursorPosition(i, j);
+                                    Console.BackgroundColor = BackColor;
+                                    Console.Write(" ");
+                                }
+                                else if (i % 2 != 0)
+                                {
+                                    Console.SetCursorPosition(i, j);
+                                    Console.BackgroundColor = BackColor;
+                                    Console.Write(" ");
+                                }
+                            }
+                            else
+                            {
+                                if (i % 2 == 0)
+                                {
+                                    Console.SetCursorPosition(i, j);
+                                    Console.BackgroundColor = ForeColor;
+                                    Console.Write(" ");
+                                }
+                                else if (i % 2 != 0)
+                                {
+                                    Console.SetCursorPosition(i, j);
+                                    Console.BackgroundColor = ForeColor;
+                                    Console.Write(" ");
+                                }
+                            }
+
+
+                        }
+                    }
+
+                    // Background Goes white
+                    for (int j = 0; j <= Console.LargestWindowHeight - 1; j++)
+                    {
+                        for (int i = 0; i <= Console.LargestWindowWidth - 1; i++)
+                        {
+                            Console.SetCursorPosition(i, j);
+                            Console.BackgroundColor = BackColor;
+                            Console.Write(" ");
+
+
+
+                        }
+                    }
+
+                    // Color changing and playing sound
+                    LightDimension();
+                    Thread.Sleep(2000);
+                    Console.BackgroundColor =BackColor;
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.SetCursorPosition(107, 18);
+                    for (int color = 0; color <= 10; color++)
+                    {
+
+                        Console.Clear();
+                        Console.SetCursorPosition(0, 19);
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        WriteTicTacToeLight();
+                        Thread.Sleep(300);
+                        if (color % 2 == 0)
+                        {
+                            Console.Clear();
+                            Console.SetCursorPosition(0, 19);
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            WriteTicTacToeLight();
+                            Thread.Sleep(300);
+                            Console.Clear();
+                        }
+                        else
+                        {
+                            Console.Clear();
+                            Console.SetCursorPosition(0, 19);
+                            Console.ForegroundColor = ForeColor;
+                            WriteTicTacToeLight();
+                            Thread.Sleep(300);
+                            Console.Clear();
+                        }
+
+                            
+                    }
+                        break;
+                } while (!(Console.ReadKey(true).Key == ConsoleKey.Enter));
+
+                break;
+        }
+
+        Console.Clear();
+        Console.CursorVisible = true;
+
+        //Game Logics    
+        while (End == false)
+        {
+                Console.ForegroundColor = ForeColor;
+                Console.BackgroundColor = BackColor;
+                Console.SetCursorPosition(2, 35);
+                Console.WriteLine("Press Y To Continue / Escape To Exit");
+                ConsoleKey GameState = Console.ReadKey().Key;
+                switch (GameState)
+                {
+                    case ConsoleKey.Y:
+                        Console.ForegroundColor = ForeColor;
+                        Console.Clear();
+                        DrawTable();
+                        IsWin = false;
+                        for (int i = 0; i< 9; i++)
+                        {
+                            BlockContent[i] = "";
+                        }
+                        Console.ForegroundColor = ForeColor;
+                        Console.BackgroundColor = BackColor;
+                        Console.SetCursorPosition(100, 10);
+                        Console.Write("Player X Score = " + Xwon);
+                        Console.SetCursorPosition(100, 15);
+                        Console.Write("Player O Score = " + Ywon);
+                        int NowCursorTop = 15;
+                        int NowCursorLeft = 30;
+                        Console.SetCursorPosition(NowCursorLeft, NowCursorTop);
+                        while (IsWin == false)
+                        {
+                            Console.SetCursorPosition(30, 15);
+                            if ((BlockContent[0] == " X" && BlockContent[1] == " X" && BlockContent[2] == " X") || (BlockContent[0] == " X" && BlockContent[3] == " X" && BlockContent[6] == " X") || (BlockContent[0] == " X" && BlockContent[4] == " X" && BlockContent[8] == " X") || (BlockContent[0] == " X" && BlockContent[3] == " X" && BlockContent[6] == " X") || (BlockContent[1] == " X" && BlockContent[4] == " X" && BlockContent[7] == " X") || (BlockContent[2] == " X" && BlockContent[5] == " X" && BlockContent[8] == " X") || (BlockContent[2] == " X" && BlockContent[4] == " X" && BlockContent[6] == " X") || (BlockContent[3] == " X" && BlockContent[4] == " X" && BlockContent[5] == " X") || (BlockContent[6] == " X" && BlockContent[7] == " X" && BlockContent[8] == " X"))
+                            {
+                                Xwon++;
+                                PlayerWon = "Player X has won!!!";
+                                IsWin = true;
+                            }
+                            else if ((BlockContent[0] == " O" && BlockContent[1] == " O" && BlockContent[2] == " O") || (BlockContent[0] == " O" && BlockContent[3] == " O" && BlockContent[6] == " O") || (BlockContent[0] == " O" && BlockContent[4] == " O" && BlockContent[8] == " O") || (BlockContent[0] == " O" && BlockContent[3] == " O" && BlockContent[6] == " O") || (BlockContent[1] == " O" && BlockContent[4] == " O" && BlockContent[7] == " O") || (BlockContent[2] == " O" && BlockContent[5] == " O" && BlockContent[8] == " O") || (BlockContent[2] == " O" && BlockContent[4] == " O" && BlockContent[6] == " O") || (BlockContent[3] == " O" && BlockContent[4] == " O" && BlockContent[5] == " O") || (BlockContent[6] == " O" && BlockContent[7] == " O" && BlockContent[8] == " O"))
+                            {
+                                Ywon++;
+                                PlayerWon = "Player O has won!!!";
+                                IsWin = true;
+                            }
+                            else if(BlockContent[0] != "" && BlockContent[1] != "" && BlockContent[2] != "" && BlockContent[3] != "" && BlockContent[4] != "" && BlockContent[5] != "" && BlockContent[6] != "" && BlockContent[7] != "" && BlockContent[8] != "")
+                            {
+                                Console.SetCursorPosition(2, 36);
+                                PlayerWon = "Game Is Draw";
+                                IsWin = true;
+
+                            }
+
+                            else
+                            {
+                                Console.SetCursorPosition(NowCursorLeft, NowCursorTop);
+                                ConsoleKey KeyPress = Console.ReadKey().Key;
+                                switch (KeyPress)
+                                {
+
+                                    case ConsoleKey.UpArrow:
+                                        if (NowCursorTop != 5)
+                                        {
+                                            NowCursorTop -= 10;
+                                            Console.SetCursorPosition(NowCursorLeft, NowCursorTop);
+
+                                        }
+                                        else
+                                            break;
+
+                                        break;
+                                    case ConsoleKey.DownArrow:
+                                        if (NowCursorTop != 25)
+                                        {
+                                            NowCursorTop += 10;
+                                            Console.SetCursorPosition(NowCursorLeft, NowCursorTop);
+                                        }
+                                        else
+                                            break;
+                                        break;
+                                    case ConsoleKey.RightArrow:
+                                        if (NowCursorLeft != 50)
+                                        {
+                                            NowCursorLeft += 20;
+                                            Console.SetCursorPosition(NowCursorLeft, NowCursorTop);
+                                        }
+                                        else
+                                            break;
+                                        break;
+                                    case ConsoleKey.LeftArrow:
+                                        if (NowCursorLeft != 10)
+                                        {
+                                            NowCursorLeft -= 20;
+                                            Console.SetCursorPosition(NowCursorLeft, NowCursorTop);
+                                        }
+                                        else
+                                            break;
+                                        break;
+                                    case ConsoleKey.Enter:
+                                        //Check Block 0
+                                        if (NowCursorTop == 5 && NowCursorLeft == 10)
+                                            if (BlockContent[0] == "" && IsWin == false)
+                                            {
+                                                if (PlayerTurn % 2 == 0)
+                                                {
+                                                    content = " X";
+                                                    Console.SetCursorPosition(NowCursorLeft, NowCursorTop);
+                                                    Console.WriteLine(content);
+                                                }
+                                                else
+                                                {
+                                                    content = " O";
+                                                    Console.SetCursorPosition(NowCursorLeft, NowCursorTop);
+                                                    Console.WriteLine(content);
+
+                                                }
+                                                PlayerTurn++;
+                                                BlockContent[0] = content;
+                                            }
+                                        //Check Block 1
+                                        if (NowCursorTop == 5 && NowCursorLeft == 30)
+                                            if (BlockContent[1] == "" && IsWin == false)
+                                            {
+                                                if (PlayerTurn % 2 == 0)
+                                                {
+                                                    content = " X";
+                                                    Console.SetCursorPosition(NowCursorLeft, NowCursorTop);
+                                                    Console.WriteLine(content);
+                                                }
+                                                else
+                                                {
+                                                    content = " O";
+                                                    Console.SetCursorPosition(NowCursorLeft, NowCursorTop);
+                                                    Console.WriteLine(content);
+
+                                                }
+                                                PlayerTurn++;
+                                                BlockContent[1] = content;
+                                            }
+                                        //Check Block 2
+                                        if (NowCursorTop == 5 && NowCursorLeft == 50)
+                                            if (BlockContent[2] == "" && IsWin == false)
+                                            {
+                                                if (PlayerTurn % 2 == 0)
+                                                {
+                                                    content = " X";
+                                                    Console.SetCursorPosition(NowCursorLeft, NowCursorTop);
+                                                    Console.WriteLine(content);
+                                                }
+                                                else
+                                                {
+                                                    content = " O";
+                                                    Console.SetCursorPosition(NowCursorLeft, NowCursorTop);
+                                                    Console.WriteLine(content);
+
+                                                }
+                                                PlayerTurn++;
+                                                BlockContent[2] = content;
+                                            }
+                                        //Check Block 3
+                                        if (NowCursorTop == 15 && NowCursorLeft == 10)
+                                            if (BlockContent[3] == "" && IsWin == false)
+                                            {
+                                                if (PlayerTurn % 2 == 0)
+                                                {
+                                                    content = " X";
+                                                    Console.SetCursorPosition(NowCursorLeft, NowCursorTop);
+                                                    Console.WriteLine(content);
+                                                }
+                                                else
+                                                {
+                                                    content = " O";
+                                                    Console.SetCursorPosition(NowCursorLeft, NowCursorTop);
+                                                    Console.WriteLine(content);
+
+                                                }
+                                                PlayerTurn++;
+                                                BlockContent[3] = content;
+                                            }
+                                        //Check Block 4
+                                        if (NowCursorTop == 15 && NowCursorLeft == 30)
+                                            if (BlockContent[4] == "" && IsWin == false)
+                                            {
+                                                if (PlayerTurn % 2 == 0)
+                                                {
+                                                    content = " X";
+                                                    Console.SetCursorPosition(NowCursorLeft, NowCursorTop);
+                                                    Console.WriteLine(content);
+                                                }
+                                                else
+                                                {
+                                                    content = " O";
+                                                    Console.SetCursorPosition(NowCursorLeft, NowCursorTop);
+                                                    Console.WriteLine(content);
+
+                                                }
+                                                PlayerTurn++;
+                                                BlockContent[4] = content;
+                                            }
+                                        //Check Block 5
+                                        if (NowCursorTop == 15 && NowCursorLeft == 50)
+                                            if (BlockContent[5] == "" && IsWin == false)
+                                            {
+                                                if (PlayerTurn % 2 == 0)
+                                                {
+                                                    content = " X";
+                                                    Console.SetCursorPosition(NowCursorLeft, NowCursorTop);
+                                                    Console.WriteLine(content);
+                                                }
+                                                else
+                                                {
+                                                    content = " O";
+                                                    Console.SetCursorPosition(NowCursorLeft, NowCursorTop);
+                                                    Console.WriteLine(content);
+
+                                                }
+                                                PlayerTurn++;
+                                                BlockContent[5] = content;
+                                            }
+                                        //Check Block 6
+                                        if (NowCursorTop == 25 && NowCursorLeft == 10)
+                                            if (BlockContent[6] == "" && IsWin == false)
+                                            {
+                                                if (PlayerTurn % 2 == 0)
+                                                {
+                                                    content = " X";
+                                                    Console.SetCursorPosition(NowCursorLeft, NowCursorTop);
+                                                    Console.WriteLine(content);
+                                                }
+                                                else
+                                                {
+                                                    content = " O";
+                                                    Console.SetCursorPosition(NowCursorLeft, NowCursorTop);
+                                                    Console.WriteLine(content);
+
+                                                }
+                                                PlayerTurn++;
+                                                BlockContent[6] = content;
+                                            }
+                                        //Check Block 7
+                                        if (NowCursorTop == 25 && NowCursorLeft == 30)
+                                            if (BlockContent[7] == "" && IsWin == false)
+                                            {
+                                                if (PlayerTurn % 2 == 0)
+                                                {
+                                                    content = " X";
+                                                    Console.SetCursorPosition(NowCursorLeft, NowCursorTop);
+                                                    Console.WriteLine(content);
+                                                }
+                                                else
+                                                {
+                                                    content = " O";
+                                                    Console.SetCursorPosition(NowCursorLeft, NowCursorTop);
+                                                    Console.WriteLine(content);
+
+                                                }
+                                                PlayerTurn++;
+                                                BlockContent[7] = content;
+                                            }
+                                        //Check Block 8
+                                        if (NowCursorTop == 25 && NowCursorLeft == 50)
+                                            if (BlockContent[8] == "" && IsWin == false)
+                                            {
+                                                if (PlayerTurn % 2 == 0)
+                                                {
+                                                    content = " X";
+                                                    Console.SetCursorPosition(NowCursorLeft, NowCursorTop);
+                                                    Console.WriteLine(content);
+                                                }
+                                                else
+                                                {
+                                                    content = " O";
+                                                    Console.SetCursorPosition(NowCursorLeft, NowCursorTop);
+                                                    Console.WriteLine(content);
+
+                                                }
+                                                PlayerTurn++;
+                                                BlockContent[8] = content;
+                                            }
+
+                                        break;
+                                }
+                            }
+                        }
+                        Console.SetCursorPosition(2, 40);
+                        Console.WriteLine(PlayerWon);
+                        break;
+                    case ConsoleKey.Escape:
+                        End = true;
+                        break;
+                }
+                    
+                
+        }
+    }
+
+    private static void LightDimension()
+    {
+
+        Console.WriteLine("\t \t \t \t \t \t \t \t " + @"                                                                                 .");
+        Console.WriteLine("\t \t \t \t \t \t \t \t " + @"                                     .                                            ");
+        Console.WriteLine("\t \t \t \t \t \t \t \t " + @"          ,d88b,                                     .                   __..-    ");
+        Console.WriteLine("\t \t \t \t \t \t \t \t " + @"          888888                                        .            .--SEAL:.    ");
+        Console.WriteLine("\t \t \t \t \t \t \t \t " + @"          `?88P'         .                       __                ,'WWII::.      ");
+        Console.WriteLine("\t \t \t \t \t \t \t \t " + @"                                               .MW:`-.            /WWII::..       ");
+        Console.WriteLine("\t \t \t \t \t \t \t \t " + @"                                       .    _.MWII:'. `.     .  ,'WII::..         ");
+        Console.WriteLine("\t \t \t \t \t \t \t \t " + @"                                        _.-MWII::'.     `-.   ,'WWI::.            ");
+        Console.WriteLine("\t \t \t \t \t \t \t \t " + @"    .                          _..vvvv,'WWII::'            `.'WII::.              ");
+        Console.WriteLine("\t \t \t \t \t \t \t \t " + @"                            ,-'WI:'''/WII:'.                 \WI:.                ");
+        Console.WriteLine("\t \t \t \t \t \t \t \t " + @"--------------------.==.--,'WWI:'.  /WI:'.          :.        `.I:.               ");
+        Console.WriteLine("\t \t \t \t \t \t \t \t " + @"            -.      (88),'WWI:'.  ,'I:.              ::.        \..               ");
+        Console.WriteLine("\t \t \t \t \t \t \t \t " + @"     -    ~-~_~ _./d88P/\?I:'.   /WI:.                ::.        \ .              ");
+        Console.WriteLine("\t \t \t \t \t \t \t \t " + @"          ~-~-,-~' ~~~ / )------'WI:.____ _.d88P_____::::.        \               ");
+        Console.WriteLine("\t \t \t \t \t \t \t \t " + @"   _       ,-'  .     /</        __..--~~  ,P^'      ~~~~~~~~~~~~~~'''''''''''    ");
+        Console.WriteLine("\t \t \t \t \t \t \t \t " + @"`?-._    ,' -   -   ,' !\__..--~~  |  |   ,P'            -          _             ");
+        Console.WriteLine("\t \t \t \t \t \t \t \t " + @"  \`=~.~/     _    /--~~~\  \   \  \  \ ,dP'   -   _           -         _        ");
+        Console.WriteLine("\t \t \t \t \t \t \t \t " + @"   \ \ \ ~--.___.-'\, \  |`. `.  `. `.,dP' _            -                         ");
+        Console.WriteLine("\t \t \t \t \t \t \t \t " + @" - _`.____....____  `_____...---.._:dP'_ -  .  -              _                   ");
+        Console.WriteLine("\t \t \t \t \t \t \t \t " + @"-_. -_ -  . _ - _ ~~~ . _  - _ -  _  _ -  -  .      -             -   .   -       ");
+        Console.WriteLine("\t \t \t \t \t \t \t \t " + @"   _   -  .   _   -  -    _     _       .      _             _         _          ");
+    }
+
+    private static void WriteTicTacToe()
+    {
+        Console.SetCursorPosition(0, 19);
+        Console.Write("\n");
+        Console.Write("\t \t \t \t \t \t \t \t " + "▄▄▄█████▓ ██▓ ▄████▄     ▄▄▄█████▓ ▄▄▄       ▄████▄     ▄▄▄█████▓ ▒█████  ▓█████" + "\n");
+        Console.Write("\t \t \t \t \t \t \t \t " + "▓  ██▒ ▓▒▓██▒▒██▀ ▀█     ▓  ██▒ ▓▒▒████▄    ▒██▀ ▀█     ▓  ██▒ ▓▒▒██▒  ██▒▓█   ▀" + "\n");
+        Console.Write("\t \t \t \t \t \t \t \t " + "▒ ▓██░ ▒░▒██▒▒▓█    ▄    ▒ ▓██░ ▒░▒██  ▀█▄  ▒▓█    ▄    ▒ ▓██░ ▒░▒██░  ██▒▒███  " + "\n");
+        Console.Write("\t \t \t \t \t \t \t \t " + "░ ▓██▓ ░ ░██░▒▓▓▄ ▄██▒   ░ ▓██▓ ░ ░██▄▄▄▄██ ▒▓▓▄ ▄██▒   ░ ▓██▓ ░ ▒██   ██░▒▓█  ▄" + "\n");
+        Console.Write("\t \t \t \t \t \t \t \t " + "  ▒██▒ ░ ░██░▒ ▓███▀ ░     ▒██▒ ░  ▓█   ▓██▒▒ ▓███▀ ░     ▒██▒ ░ ░ ████▓▒░░▒████▒" + "\n");
+        Console.Write("\t \t \t \t \t \t \t \t " + "  ▒ ░░   ░▓  ░ ░▒ ▒  ░     ▒ ░░    ▒▒   ▓▒█░░ ░▒ ▒  ░     ▒ ░░   ░ ▒░▒░▒░ ░░ ▒░ ░" + "\n");
+        Console.Write("\t \t \t \t \t \t \t \t " + "    ░     ▒ ░  ░  ▒          ░      ▒   ▒▒ ░  ░  ▒          ░      ░ ▒ ▒░  ░ ░  ░" + "\n");
+        Console.Write("\t \t \t \t \t \t \t \t " + "  ░       ▒ ░░             ░        ░   ▒   ░             ░      ░ ░ ░ ▒     ░   " + "\n");
+        Console.Write("\t \t \t \t \t \t \t \t " + "          ░  ░ ░                        ░  ░░ ░                      ░ ░     ░  ░" + "\n");
+        Console.Write("\t \t \t \t \t \t \t \t " + "            ░                              ░                                    " + "\n");
+        Console.Write("\t \t \t \t \t \t \t \t " + "                       P r e s s  E n t e r  T o  C o n t i n u e" + "\n");
+    }
+
+    private static void WriteHalloween()
+    {
+        Console.SetCursorPosition(0, 19);
+        Console.Write("\n");
+        Console.Write("\t \t \t \t \t \t " + " ██░ ██  ▄▄▄       ██▓     ██▓     ▒█████   █     █░▓█████ ▓█████  ███▄    █    ▓█████ ▓█████▄  ██▓▄▄▄█████▓ ██▓ ▒█████   ███▄    █ " + "\n");
+        Console.Write("\t \t \t \t \t \t " + "▓██░ ██▒▒████▄    ▓██▒    ▓██▒    ▒██▒  ██▒▓█░ █ ░█░▓█   ▀ ▓█   ▀  ██ ▀█   █    ▓█   ▀ ▒██▀ ██▌▓██▒▓  ██▒ ▓▒▓██▒▒██▒  ██▒ ██ ▀█   █ " + "\n");
+        Console.Write("\t \t \t \t \t \t " + "▒██▀▀██░▒██  ▀█▄  ▒██░    ▒██░    ▒██░  ██▒▒█░ █ ░█ ▒███   ▒███   ▓██  ▀█ ██▒   ▒███   ░██   █▌▒██▒▒ ▓██░ ▒░▒██▒▒██░  ██▒▓██  ▀█ ██▒" + "\n");
+        Console.Write("\t \t \t \t \t \t " + "░▓█ ░██ ░██▄▄▄▄██ ▒██░    ▒██░    ▒██   ██░░█░ █ ░█ ▒▓█  ▄ ▒▓█  ▄ ▓██▒  ▐▌██▒   ▒▓█  ▄ ░▓█▄   ▌░██░░ ▓██▓ ░ ░██░▒██   ██░▓██▒  ▐▌██▒" + "\n");
+        Console.Write("\t \t \t \t \t \t " + "░▓█▒░██▓ ▓█   ▓██▒░██████▒░██████▒░ ████▓▒░░░██▒██▓ ░▒████▒░▒████▒▒██░   ▓██░   ░▒████▒░▒████▓ ░██░  ▒██▒ ░ ░██░░ ████▓▒░▒██░   ▓██░" + "\n");
+        Console.Write("\t \t \t \t \t \t " + " ▒ ░░▒░▒ ▒▒   ▓▒█░░ ▒░▓  ░░ ▒░▓  ░░ ▒░▒░▒░ ░ ▓░▒ ▒  ░░ ▒░ ░░░ ▒░ ░░ ▒░   ▒ ▒    ░░ ▒░ ░ ▒▒▓  ▒ ░▓    ▒ ░░   ░▓  ░ ▒░▒░▒░ ░ ▒░   ▒ ▒ " + "\n");
+        Console.Write("\t \t \t \t \t \t " + " ▒ ░▒░ ░  ▒   ▒▒ ░░ ░ ▒  ░░ ░ ▒  ░  ░ ▒ ▒░   ▒ ░ ░   ░ ░  ░ ░ ░  ░░ ░░   ░ ▒░    ░ ░  ░ ░ ▒  ▒  ▒ ░    ░     ▒ ░  ░ ▒ ▒░ ░ ░░   ░ ▒░" + "\n");
+        Console.Write("\t \t \t \t \t \t " + " ░  ░░ ░  ░   ▒     ░ ░     ░ ░   ░ ░ ░ ▒    ░   ░     ░      ░      ░   ░ ░       ░    ░ ░  ░  ▒ ░  ░       ▒ ░░ ░ ░ ▒     ░   ░ ░ " + "\n");
+        Console.Write("\t \t \t \t \t \t " + " ░  ░  ░      ░  ░    ░  ░    ░  ░    ░ ░      ░       ░  ░   ░  ░         ░       ░  ░   ░     ░            ░      ░ ░           ░  " + "\n");
+    }
+
+    private static void firstpage()
+    {
+        Console.Write("Enter The Dimension *Light* or *Dark* : ");
+        for (int j = 0; j <= Console.LargestWindowHeight - 1; j++)
+        {
+
+            for (int i = 0; i <= Console.LargestWindowWidth - 1; i++)
+            {
+
+                if (j % 2 == 0)
+                {
+
+                    if (i <= 106 && i >= 41)
+                    {
+                        Console.SetCursorPosition(i, j);
+                        Console.BackgroundColor = ConsoleColor.White;
+                        Console.Write(" ");
+                    }
+                    else if (i >= 107)
+                    {
+                        Console.SetCursorPosition(i, j);
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        Console.Write(" ");
+                    }
+                }
+            }
+        }
+        Console.SetCursorPosition(42, 0);
+    }
+
+    private static void WriteTicTacToeLight()
+    {
+        Console.WriteLine("\t \t \t \t \t \t \t" + @"                                                                                                              ");
+        Console.WriteLine("\t \t \t \t \t \t \t" + @"    ███      ▄█   ▄████████          ███        ▄████████  ▄████████          ███      ▄██████▄     ▄████████ ");
+        Console.WriteLine("\t \t \t \t \t \t \t" + @"▀█████████▄ ███  ███    ███      ▀█████████▄   ███    ███ ███    ███      ▀█████████▄ ███    ███   ███    ███ ");
+        Console.WriteLine("\t \t \t \t \t \t \t" + @"   ▀███▀▀██ ███▌ ███    █▀          ▀███▀▀██   ███    ███ ███    █▀          ▀███▀▀██ ███    ███   ███    █▀  ");
+        Console.WriteLine("\t \t \t \t \t \t \t" + @"    ███   ▀ ███▌ ███                 ███   ▀   ███    ███ ███                 ███   ▀ ███    ███  ▄███▄▄▄     ");
+        Console.WriteLine("\t \t \t \t \t \t \t" + @"    ███     ███▌ ███                 ███     ▀███████████ ███                 ███     ███    ███ ▀▀███▀▀▀     ");
+        Console.WriteLine("\t \t \t \t \t \t \t" + @"    ███     ███  ███    █▄           ███       ███    ███ ███    █▄           ███     ███    ███   ███    █▄  ");
+        Console.WriteLine("\t \t \t \t \t \t \t" + @"    ███     ███  ███    ███          ███       ███    ███ ███    ███          ███     ███    ███   ███    ███ ");
+        Console.WriteLine("\t \t \t \t \t \t \t" + @"   ▄████▀   █▀   ████████▀          ▄████▀     ███    █▀  ████████▀          ▄████▀    ▀██████▀    ██████████ ");
+        Console.WriteLine("\t \t \t \t \t \t \t" + @"                                          Press Enter To Continiue                                            ");
+    }
+
+    private static void WriteXLight()
+    {
+        Console.WriteLine(@"▀████    ▐████▀ ");
+        Console.WriteLine(@"  ███▌   ████▀  ");
+        Console.WriteLine(@"   ███  ▐███    ");
+        Console.WriteLine(@"   ▀███▄███▀    ");
+        Console.WriteLine(@"   ████▀██▄     ");
+        Console.WriteLine(@"  ▐███  ▀███    ");
+        Console.WriteLine(@" ▄███     ███▄  ");
+        Console.WriteLine(@"████       ███▄ ");
+        Console.WriteLine(@"                ");
+
+    }
+    private static void WriteOLight()
+    {
+        Console.WriteLine(@" ▄██████▄  ");
+        Console.WriteLine(@"███    ███ ");
+        Console.WriteLine(@"███    ███ ");
+        Console.WriteLine(@"███    ███ ");
+        Console.WriteLine(@"███    ███ ");
+        Console.WriteLine(@"███    ███ ");
+        Console.WriteLine(@"███    ███ ");
+        Console.WriteLine(@" ▀██████▀  ");
+        Console.WriteLine(@"           ");
+    }
+    private static void WriteODark()
+    {
+
+
+            Console.WriteLine(@"   ___     ");
+            Console.WriteLine(@"  /\  \    ");
+            Console.WriteLine(@" /::\  \   ");
+            Console.WriteLine(@"/:/\:\__\  ");
+            Console.WriteLine(@"\:\/:/  /  ");
+            Console.WriteLine(@" \::/  /   ");
+            Console.WriteLine(@"  \/_ /    ");
+
+
+    }
+    private static void WriteXDark()
+    {
+        
+        Console.WriteLine(@"\ \/ / ");
+        Console.WriteLine(@" >  <  ");
+        Console.WriteLine(@"/_/\_\");
+    }
+    private static void DrawTable()
+    {
+        for (int j = 0; j <= 50; j++)
+        {
+            for (int i = 0; i <=200 ; i++)
+            {
+                    if ((i == 19  || i == 20 || j == 9 || j == 22 || i == 43 || i == 44) && i <= 66 && j <=33)
+                    {
+                        Thread.Sleep(0);
+                        Console.SetCursorPosition(i, j);
+                        Console.BackgroundColor = ConsoleColor.DarkGray;
+                        Console.Write(" ");
+                        
+                    }
+            }
+        }
+    }
+
+
+}
+}
